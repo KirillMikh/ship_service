@@ -28,8 +28,8 @@ def result():
     list1 = generate_random_info(20)
     if request.method == 'POST':
         result1 = request.form
-        return render_template("ships_table_form.html", result=result1, ship_list=list1)#после отправки формы попадаем на страницу где пишется, что мы ввели + список кораблей
+        return render_template("ships_table_form.html", result=result1, ship_list=list1)
     else:
-        return render_template("ships_table_form.html",result=None, ship_list=list1)#иначе просто попадаем на наш список кораблей
+        return render_template("ships_table_form.html",result=None, ship_list=list1)
 
 app.run()
