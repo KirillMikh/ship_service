@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+   <body>
+<h2 align="center">
+    {% if result!= None %}
+        Вы ввели
+     {% for key, value in result.items() %}
+
+               {{ value }}
+
+         {% endfor %}
+     {% endif %}
+</h2>
+
+      <table border = 1 align="center">
+        <tr>
+        <td> Название  </td>
+        <td> Год  </td>
+        <td> Страна </td>
+        </tr>
+
+         {% for ship in ship_list %}
+            <tr>
+                <td> {{ ship[0] }} </td>
+                <td> {{ ship[1] }} </td>
+                <td> {{ ship[2] }} </td>
+            </tr>
+         {% endfor %}
+      </table>
+
+   </body>
+</html>
