@@ -30,6 +30,6 @@ def result():
         result1 = request.form
         return render_template("ships_table_form.html", result=result1, ship_list=list1)
     else:
-        return render_template("ships_table_form.html",result=None, ship_list=list1)
+        return render_template("ships_table_form.html",result=None, ship_list=list1)#
 
 app.run()
