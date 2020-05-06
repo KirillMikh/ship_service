@@ -1,6 +1,40 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8" >
+     <title>Main ships page</title>
+ <style>
+body { background: url(static/lighthouse.jpg); }
+table {
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 14px;
+border-collapse: collapse;
+text-align: center;
+width:50%;
+}
+th, td:first-child {
+background: #AFCDE7;
+color: white;
+padding: 10px 20px;
+}
+th, td {
+border-style: solid;
+border-width: 0 1px 1px 0;
+border-color: white;
+}
+td {
+background: #D8E6F3;
+}
+th:first-child, td:first-child {
+text-align: left;
+}
+ </style>
+
+    </head>
+
    <body>
+<h1 align="center">Main ships page </h1>
+<h3 align="center"><a href = "{{ url_for('add_ship') }}">Добавить корабль </a></h3>
 <h2 align="center">
     {% if result!= None %}
         Вы ввели
@@ -11,12 +45,14 @@
          {% endfor %}
      {% endif %}
 </h2>
-
       <table border = 1 align="center">
         <tr>
         <td> Название  </td>
         <td> Год  </td>
         <td> Страна </td>
+        <td> Размер </td>
+        <td> Описание </td>
+        <td> Действие </td>
         </tr>
 
          {% for ship in ship_list %}
@@ -24,6 +60,15 @@
                 <td> {{ ship[0] }} </td>
                 <td> {{ ship[1] }} </td>
                 <td> {{ ship[2] }} </td>
+                <td> {{ ship[3] }} </td>
+                <td> {{ ship[4] }} </td>
+
+                <td>
+                     <a href="{{ url_for('delete', name=ship[0]) }}">удалить
+                     </a> |
+                     <a href="{{ url_for('edit', name=ship[0]) }}">изменить
+                     </a>
+                  </td>
             </tr>
          {% endfor %}
       </table>
