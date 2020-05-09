@@ -1,39 +1,27 @@
 from flask import Flask
 from flask import (
     request, flash, url_for, redirect, g, render_template)
+from libs.postres_db import get_db
+from libs.ship import Ship
 
-import random
-import pycountry
 app = Flask(__name__)
 
 
-def generate_random_info(num):
-    countries = []
-    for country in pycountry.countries:
-        countries.append(country.name)
-    ships = []
-    for i in range(num):
-        name = f"ship #{i}"
-        year = random.randint(1980, 2020)
-        country = random.choice(countries)
-        size = 5*i+1
-        description = f" this is ship {i}"
-        tuple1 = (name, year, country, size, description)
-        ships.append(tuple1)
-    return ships, countries
-
-
-db1, countries = generate_random_info(20) # пока очень грубо представляю базу данных
-
-
-@app.route('/add')
+@app.route('/add', methods=['POST', 'GET'])
 def add_ship():
-    return render_template('add_ship.html')
+    if request.method == 'GET':
+
+        return render_template('add_ship.html')
+    else:
+        temp_ship=Ship(name=request.form['name'],country_name=request.form['country'],description=request.form['description'],
+                length=request.form['length'],width = request.form['width'],built_year=request.form['year'] , sid =None)
+        get_db().insert_ship(temp_ship)
+        return render_template('ships_table_form.html',ship_list=get_db().get_ships())
 
 
 @app.route('/', methods=['POST', 'GET'])
 def result():
-    list1 = db1
+    list1 = get_db().get_ships()
     if request.method == 'POST':
         result1 = request.form
         return render_template("ships_table_form.html", result=result1, ship_list=list1)
@@ -46,21 +34,23 @@ def edit():
     if request.method == 'POST':
         if (not request.form['name'] or
                 not request.form['country'] or
-                not request.form['ship_description']or
-                not request.form['built_year'] or
-                not request.form['size']):
-            flash('Please enter all the fields', 'error')
+                not request.form['description']or
+                not request.form['year'] or
+                not request.form['length']or
+                not request.form['width']):
+            print("Ошибка")
+            # flash('Введены не все поля!', 'error')
         else:
-            t1 = (request.form['name'], request.form['built_year'], request.form['country'],
-                  request.form['size'], request.form['ship_description'])
-            db1.append(t1)
-        return redirect(url_for("result"))
+            temp_ship = Ship(name=request.form['name'], built_year=request.form['year'],country_name=request.form['country'],
+                 length=request.form['length'], description=request.form['description'], width=request.form['width'], sid=request.form['id'])
+            print(temp_ship.make_dict())
+            get_db().update_ship(temp_ship)
+            return redirect(url_for("result"))
     else:
         ship_name = request.args.get('name')
-        for ship in db1:
-            if ship_name == ship[0]:
-                db1.remove(ship)
-        return render_template('edit.html', countries=countries)
+        temp_ship = get_db().get_ship_by_name(ship_name)
+        countries = get_db().get_countries()
+        return render_template('edit.html', ship=temp_ship, countries=countries)
 
 
 @app.route('/delete', methods=["GET", "POST"])
@@ -68,10 +58,8 @@ def delete():
     if request.method == "GET":
         ship_name = request.args.get('name')
         print(ship_name)
-        for ship_row in db1:
-            if ship_name == ship_row[0]:
-                db1.remove(ship_row)
-        return render_template("ships_table_form.html", result=None, ship_list=db1)
+        get_db().del_ship(ship_name)
+        return render_template("ships_table_form.html", result=None, ship_list=get_db().get_ships())
 
 
 if __name__ == '__main__':

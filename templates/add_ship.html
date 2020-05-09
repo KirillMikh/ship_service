@@ -7,7 +7,7 @@
     </title>
     </head>
 <body>
-   <form method = "POST" action="/">
+   <form method = "POST" action="{{ url_for('add_ship') }}">
 <H3 align="center">Введите данные о новом корабле </H3>
 <table align="center" >
 <tr>
@@ -23,8 +23,12 @@
 <td><input  type="text" name="year" required placeholder="Введите текст" ></td>
 </tr>
  <tr>
-<td>Размер</td>
-<td><input  type="text" name="size" required placeholder="Введите текст" ></td>
+<td>Длина</td>
+<td><input  type="text" name="length" required placeholder="Введите текст" ></td>
+</tr><tr>
+<tr>
+<td>Ширина</td>
+<td><input  type="text" name="width" required placeholder="Введите текст" ></td>
 </tr><tr>
 <td>Описание</td>
 <td><input  type="text" name="description" required placeholder="Введите текст" ></td>

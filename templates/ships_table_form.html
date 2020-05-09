@@ -14,13 +14,13 @@ width:50%;
 }
 th, td:first-child {
 background: #AFCDE7;
-color: white;
+color: black;
 padding: 10px 20px;
 }
 th, td {
 border-style: solid;
 border-width: 0 1px 1px 0;
-border-color: white;
+border-color: black;
 }
 td {
 background: #D8E6F3;
@@ -35,16 +35,6 @@ text-align: left;
    <body>
 <h1 align="center">Main ships page </h1>
 <h3 align="center"><a href = "{{ url_for('add_ship') }}">Добавить корабль </a></h3>
-<h2 align="center">
-    {% if result!= None %}
-        Вы ввели
-     {% for key, value in result.items() %}
-
-               {{ value }}
-
-         {% endfor %}
-     {% endif %}
-</h2>
       <table border = 1 align="center">
         <tr>
         <td> Название  </td>
@@ -57,16 +47,16 @@ text-align: left;
 
          {% for ship in ship_list %}
             <tr>
-                <td> {{ ship[0] }} </td>
-                <td> {{ ship[1] }} </td>
-                <td> {{ ship[2] }} </td>
-                <td> {{ ship[3] }} </td>
-                <td> {{ ship[4] }} </td>
+                <td> {{ ship.name }} </td>
+                <td> {{ ship.country_name }} </td>
+                <td> {{ ship.built_year }} </td>
+                <td> {{ ship.length }} </td>
+                <td> {{ ship.description }} </td>
 
                 <td>
-                     <a href="{{ url_for('delete', name=ship[0]) }}">удалить
+                     <a href="{{ url_for('delete', name=ship.name) }}">удалить
                      </a> |
-                     <a href="{{ url_for('edit', name=ship[0]) }}">изменить
+                     <a href="{{ url_for('edit', name=ship.name) }}">изменить
                      </a>
                   </td>
             </tr>

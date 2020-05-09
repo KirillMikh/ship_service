@@ -8,30 +8,36 @@
       <hr/>
 <div align="center">
       <form action = "{{ url_for('edit') }}" method = "POST">
+           <input type="hidden" name="id" value="{{ ship.id }}">
          <label for = "name">Имя</label><br>
          <input type = "text" name = "name" placeholder = "Name"
          /><br>
 
          <label for = "country">Country</label><br>
-        <select name="country">
+         <select name="country">
             {%- for country in countries %}
-               <option value=" {{ country }} ">
-                            {{ country }}
+               <option value="{{ country }}">
+                       {{ 'selected' if country == ship.country_name else '' }}
+                  {{ country }}
                </option>
+
             {%- endfor %}
          </select>
-        <br>
-        <label for = "zise">Размер</label><br>
-         <input type = "text" name = "size"
-         /><br>
 
-         <label for = "ship_description">Описание судна</label><br>
-         <textarea name = "ship_description"
+        <br>
+        <label for = "length">Длина</label><br>
+         <input type = "text" name = "length"/><br>
+
+        <label for = "width">Ширина</label><br>
+         <input type = "text" name = "width"/><br>
+
+         <label for = "description">Описание судна</label><br>
+         <textarea name = "description"
                    placeholder = "Description of ship"
          ></textarea><br>
 
-         <label for = "built_year">Год постройки</label><br>
-         <input type = "text" name = "built_year" placeholder = "2000"
+         <label for = "year">Год постройки</label><br>
+         <input type = "text" name = "year" placeholder = "1990"
                /><br>
 
          <input type = "submit" value = "Изменить" />
