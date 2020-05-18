@@ -10,7 +10,7 @@ from libs.ship import Ship
 
 CRAWLER_QUEUE_NAME = "crawl_pages"
 CRAWLER_EXCHANGE_NAME = "ex_crawl_pages"
-DRIVER_PATH = "bin/chromedriver"  # path to driver binary
+DRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
 IS_HEADLESS = False
 NUM_WORKERS = 1
 
