@@ -3,7 +3,7 @@ import psycopg2
 
 
 from libs.ship import Ship
-DB_URL= 'postgres://postgres:71732321@localhost:5432/ships'
+DB_URL= 'postgres://khiwctpljlhtau:1ea4848ae3d18c4706ba2d6aee41712b51a633a6a8fb9921b85abf22a7685efc@ec2-54-217-213-79.eu-west-1.compute.amazonaws.com:5432/d20nqrmjukiteb'
 def get_db():
     if 'db' not in g:
         g.db = DbPg(current_app.logger)
