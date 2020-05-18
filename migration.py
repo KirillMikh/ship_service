@@ -1,11 +1,7 @@
 import os
 import psycopg2
 import csv
-con = psycopg2.connect(user = "postgres",
-                                  password = "71732321",
-                                  host = "127.0.0.1",
-                                  port = "5432",
-                                  database = "ships")
+con = psycopg2.connect('postgres://khiwctpljlhtau:1ea4848ae3d18c4706ba2d6aee41712b51a633a6a8fb9921b85abf22a7685efc@ec2-54-217-213-79.eu-west-1.compute.amazonaws.com:5432/d20nqrmjukiteb')
 cur = con.cursor()
 
 cur.execute("DROP TABLE IF EXISTS countries CASCADE")
